@@ -4,6 +4,7 @@ import "../styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import React from "react";
 import PaginationProvider from "../providers/PaginationProvider";
+import QueryProvider from "../providers/QueryProvider";
 
 function App({
   Component,
@@ -15,7 +16,9 @@ function App({
   return (
     <ChakraProvider>
       <PaginationProvider>
-        <Component {...pageProps} />
+        <QueryProvider>
+          <Component {...pageProps} />
+        </QueryProvider>
       </PaginationProvider>
     </ChakraProvider>
   );

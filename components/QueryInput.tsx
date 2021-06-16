@@ -7,8 +7,10 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
+import { useQuery } from "../providers/QueryProvider";
 
 export default function QueryInput() {
+  const [query, setQuery] = useQuery();
   return (
     <Box>
       <Text fontWeight="bold" as="h1" fontSize={32}>
@@ -23,7 +25,12 @@ export default function QueryInput() {
           pointerEvents="none"
           children={<SearchIcon color="gray.300" />}
         />
-        <Input bgColor="white" placeholder="Search"></Input>
+        <Input
+          bgColor="white"
+          placeholder="Search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        ></Input>
       </InputGroup>
     </Box>
   );

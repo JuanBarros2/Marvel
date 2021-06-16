@@ -2,6 +2,8 @@ import { Flex, Image, Text } from "@chakra-ui/react";
 import { Hero } from "model";
 import React from "react";
 
+const MAX_INFO_LIST = 3;
+
 export default function HeroItem({
   hero: {
     thumbnail: { path, extension },
@@ -14,11 +16,13 @@ export default function HeroItem({
 }) {
   const InfoList = ({ items }) => (
     <Flex direction="column" w="full">
-      {items.map((item, i) => (
-        <Text key={i} fontSize="14px">
-          {item.name}
-        </Text>
-      ))}
+      {items
+        .filter((_, i) => i + 1 <= MAX_INFO_LIST)
+        .map((item, i) => (
+          <Text key={i} fontSize="14px">
+            {item.name}
+          </Text>
+        ))}
     </Flex>
   );
 

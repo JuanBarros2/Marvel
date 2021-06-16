@@ -9,20 +9,24 @@ import {
 
 interface PageState {
   page: number;
+  total: number;
 }
 interface PageAction {
-  type: "skip" | "back";
+  type: "update" | "reset" | "updatetotal";
+  payload?: number;
 }
 
 const PaginationStateContext = createContext<PageState>(null);
 const PaginationDispatchContext = createContext<Dispatch<PageAction>>(null);
 
-const reducer = (state: PageState, action: PageAction) => {
+const reducer = ({ total, page }: PageState, action: PageAction) => {
   switch (action.type) {
-    case "skip":
-      return { page: ++state.page };
-    case "back":
-      return { page: --state.page };
+    case "reset":
+      return { page: 1, total };
+    case "update":
+      return { page: action.payload, total };
+    case "updatetotal":
+      return { page, total: action.payload };
     default: {
       throw new Error(`Unhandled action type: ${action}`);
     }
@@ -34,7 +38,7 @@ export default function PaginationProvider({
 }: {
   children: ReactNode;
 }) {
-  const [state, dispatch] = useReducer(reducer, { page: 1 });
+  const [state, dispatch] = useReducer(reducer, { page: 1, total: 1 });
   return (
     <PaginationStateContext.Provider value={state}>
       <PaginationDispatchContext.Provider value={dispatch}>
