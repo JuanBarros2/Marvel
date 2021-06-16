@@ -11,7 +11,7 @@ export default function useFetch() {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true)
-            const response = await fetch(`http://localhost:3000/api/heroes?page=${page}&query=${query}`)
+            const response = await fetch(`/api/heroes?page=${page}&query=${query}`)
             const { results, pages } = await response.json()
             dispatch({ type: 'updatetotal', payload: pages })
             setData(results)

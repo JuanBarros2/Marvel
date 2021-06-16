@@ -20,7 +20,6 @@ export default async (req, res) => {
         data: { results, total },
     } = await response.json();
     res.setHeader('Cache-Control', 's-maxage=60, state-while-revalidate')
-    console.log(total, limit)
     res.status(200).json({ results, pages: Math.ceil(total / Number(limit)) })
 
 };
