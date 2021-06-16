@@ -13,14 +13,14 @@ export default function QueryInput() {
   const [query, setQuery] = useQuery();
   return (
     <Box>
-      <Text fontWeight="bold" as="h1" fontSize={32}>
+      <Text fontWeight="bold" as="h1" fontSize={32} mb={4} mt={10}>
         Busca de personagens
       </Text>
       <Text fontWeight="bold" as="h2">
         Nome do personagem
       </Text>
 
-      <InputGroup w="295px">
+      <InputGroup w="295px" mb={10}>
         <InputRightElement
           pointerEvents="none"
           children={<SearchIcon color="gray.300" />}
