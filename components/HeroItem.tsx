@@ -2,6 +2,8 @@ import { Flex, Image, Text } from "@chakra-ui/react";
 import { Hero } from "model";
 import React from "react";
 
+import useBreaking, { useUtilsBreakpoint } from "../hooks/useBreakpoint";
+
 const MAX_INFO_LIST = 3;
 
 export default function HeroItem({
@@ -14,11 +16,12 @@ export default function HeroItem({
 }: {
   hero: Hero;
 }) {
+  const { isBigScreen } = useUtilsBreakpoint();
   const InfoList = ({ items }) => (
     <Flex direction="column" w="full">
       {items
-        .filter((_, i) => i + 1 <= MAX_INFO_LIST)
-        .map((item, i) => (
+        .filter((_: any, i: number) => i + 1 <= MAX_INFO_LIST)
+        .map((item: { name: string }, i: React.Key) => (
           <Text key={i} fontSize="14px">
             {item.name}
           </Text>
@@ -46,8 +49,12 @@ export default function HeroItem({
         />
         <Text fontWeight="bold">{name}</Text>
       </Flex>
-      <InfoList items={series.items} />
-      <InfoList items={events.items} />
+      {isBigScreen && (
+        <>
+          <InfoList items={series.items} />
+          <InfoList items={events.items} />
+        </>
+      )}
     </Flex>
   );
 }

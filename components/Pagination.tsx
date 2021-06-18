@@ -5,19 +5,20 @@ import {
   ChevronRightIcon,
 } from "@chakra-ui/icons";
 import { Box, Button, Center, SystemStyleObject } from "@chakra-ui/react";
-import router, { useRouter } from "next/router";
 import React from "react";
 import {
   useDispatchPagination,
   usePage,
 } from "../providers/PaginationProvider";
-
-const MAX_BUTTON_NUMBER = 5;
+import { useUtilsBreakpoint } from "../hooks/useBreakpoint";
 
 export default function Pagination() {
+  const { isBigScreen } = useUtilsBreakpoint();
+  const MAX_BUTTON_NUMBER = isBigScreen ? 5 : 3;
+
   const { page, total } = usePage();
   const dispatch = useDispatchPagination();
-  const updatePage = (value) => {
+  const updatePage = (value: number) => {
     dispatch({ type: "update", payload: value });
   };
   const windowOffset = Math.ceil(page / MAX_BUTTON_NUMBER) - 1;
@@ -50,7 +51,7 @@ export default function Pagination() {
   const lastPageWithOffset = (windowOffset + 1) * MAX_BUTTON_NUMBER;
   const firstPageWithOffset = windowOffset * MAX_BUTTON_NUMBER + 1;
   return (
-    <Center h="100px">
+    <Center my={4}>
       {page != firstPageWithOffset && (
         <ActionButton onClick={() => updatePage(firstPageWithOffset)}>
           <ArrowLeftIcon boxSize={2} px={"0"} />

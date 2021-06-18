@@ -14,4 +14,5 @@ declare module "model" {
             name: string;
         }[]
     }
+    export type ScreenSize = 'sm' | 'md' | 'lg' | 'xl'
 }
