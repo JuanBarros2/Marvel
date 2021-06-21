@@ -1,25 +1,32 @@
 import { Box, Container, Flex } from "@chakra-ui/react";
 import { Hero } from "model";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { useRouter } from "next/router";
 import React from "react";
 import { Header } from "../../components";
 import HeroDetails from "../../components/HeroDetails";
 import { getMarvelKeyParams } from "../../utils/getMarvelKeyParams";
 
 export default function HeroPage({ hero }: { hero: Hero }) {
+  const { isFallback } = useRouter();
   return (
     <Flex h="100vh" direction="column" bgColor="#E5E5E5 ">
       <Header />
       <Container maxW="1140px">
-        <HeroDetails hero={hero} />
+        {!isFallback && <HeroDetails hero={hero} />}
       </Container>
     </Flex>
   );
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await fetch(process.env.VERCEL_URL + "/api/heroes?page=1");
-  const { results } = await response.json();
+  const limit = process.env.MARVEL_LIMIT ?? "10";
+  const response = await fetch(
+    `https://gateway.marvel.com:443/v1/public/characters?${getMarvelKeyParams()}&limit=${limit}`
+  );
+  const {
+    data: { results },
+  } = await response.json();
   const paths = results.map((item: { id: number }) => ({
     params: { id: `${item.id}` },
   }));
