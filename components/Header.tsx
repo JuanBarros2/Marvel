@@ -4,7 +4,7 @@ import React from "react";
 
 export default function Header() {
   return (
-    <Flex mx={4} align="center">
+    <Flex px={4} align="center" bgColor="white">
       <Image src="/logo.svg" h={6} ml={6}></Image>
       <Spacer />
       <Flex direction={["column", "column", "row"]}>

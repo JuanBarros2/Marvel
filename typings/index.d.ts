@@ -8,6 +8,7 @@ declare module "model" {
         };
         events: Iterable;
         series: Iterable;
+        description: string;
     }
     export interface Iterable {
         items: {

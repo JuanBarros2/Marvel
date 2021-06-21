@@ -1,5 +1,6 @@
 import { Flex, Image, Text } from "@chakra-ui/react";
 import { Hero } from "model";
+import { useRouter } from "next/router";
 import React from "react";
 
 import useBreaking, { useUtilsBreakpoint } from "../hooks/useBreakpoint";
@@ -12,11 +13,13 @@ export default function HeroItem({
     events,
     series,
     name,
+    id,
   },
 }: {
   hero: Hero;
 }) {
   const { isBigScreen } = useUtilsBreakpoint();
+  const router = useRouter();
   const InfoList = ({ items }) => (
     <Flex direction="column" w="full">
       {items
@@ -29,6 +32,10 @@ export default function HeroItem({
     </Flex>
   );
 
+  const redirectDetails = () => {
+    router.push(`/hero/${id}`);
+  };
+
   return (
     <Flex
       w="full"
@@ -38,6 +45,10 @@ export default function HeroItem({
       borderRadius={4}
       my={1}
       boxShadow={"0 0 5px #00000033"}
+      onClick={() => redirectDetails()}
+      sx={{
+        cursor: "pointer",
+      }}
     >
       <Flex w="full">
         <Image

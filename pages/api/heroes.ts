@@ -9,7 +9,6 @@ export default async (req, res) => {
         "https://gateway.marvel.com:443/v1/public/characters?"
         + `${getMarvelKeyParams()}&limit=${limit}&offset=${offset}` +
         (queryString ? `&nameStartsWith=${queryString}` : "")
-    console.log(url, getMarvelKeyParams())
 
     const response = await fetch(url);
     const {
