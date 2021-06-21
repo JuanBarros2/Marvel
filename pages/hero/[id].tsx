@@ -10,7 +10,7 @@ import { getMarvelKeyParams } from "../../utils/getMarvelKeyParams";
 export default function HeroPage({ hero }: { hero: Hero }) {
   const { isFallback } = useRouter();
   return (
-    <Flex h="100vh" direction="column" bgColor="#E5E5E5 ">
+    <Flex direction="column" bgColor="#E5E5E5 ">
       <Header />
       <Container maxW="1140px">
         {!isFallback && <HeroDetails hero={hero} />}

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatchPagination, usePage } from '../providers/PaginationProvider';
 import { useQuery } from '../providers/QueryProvider';
@@ -8,6 +9,7 @@ export default function useFetch() {
     const [query = ""] = useQuery()
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState([])
+    const router = useRouter();
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true)
@@ -18,14 +20,24 @@ export default function useFetch() {
             setLoading(false)
         }
         fetchData()
+
     }, [page, query])
 
     useEffect(() => {
         dispatch({ type: "reset" })
     }, [query])
 
+    useEffect(() => {
+        const handleRouteChange = () => setLoading(true)
+        router.events.on('routeChangeStart', handleRouteChange)
+
+        return () => {
+            router.events.off('routeChangeStart', handleRouteChange)
+        }
+    }, [])
+
     return {
         data,
-        loading
+        loading,
     }
 }

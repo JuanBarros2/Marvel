@@ -22,7 +22,7 @@ export default function HeroDetails({
   hero: Hero;
 }) {
   return (
-    <Box bgColor="#E5E5E5 ">
+    <Box bgColor="#E5E5E5">
       <SimpleGrid
         columns={[1, 1, 2]}
         spacing="10px"

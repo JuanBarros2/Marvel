@@ -18,8 +18,8 @@ export default function HeroItem({
 }: {
   hero: Hero;
 }) {
-  const { isBigScreen } = useUtilsBreakpoint();
   const router = useRouter();
+  const { isBigScreen } = useUtilsBreakpoint();
   const InfoList = ({ items }) => (
     <Flex direction="column" w="full">
       {items
